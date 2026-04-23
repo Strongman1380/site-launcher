@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Site Launcher</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --text: #17202a;
+      --muted: #637083;
+      --line: #d9dee7;
+      --accent: #0f766e;
+      --accent-dark: #0b5d56;
+      --shadow: 0 12px 30px rgba(17, 24, 39, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    header {
+      padding: 32px clamp(18px, 4vw, 48px) 18px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(1220px, calc(100% - 32px));
+      margin: 24px auto 42px;
+    }
+
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .quick-link {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 112px;
+      padding: 18px;
+      color: var(--text);
+      text-decoration: none;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .quick-link strong {
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    .quick-link span {
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    .quick-link:hover,
+    .quick-link:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .preview {
+      overflow: hidden;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .preview-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .preview-title {
+      min-width: 0;
+    }
+
+    .preview-title strong {
+      display: block;
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    .preview-title span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .open-button {
+      flex: 0 0 auto;
+      padding: 10px 13px;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+      background: var(--accent);
+      border-radius: 6px;
+    }
+
+    .open-button:hover,
+    .open-button:focus {
+      background: var(--accent-dark);
+      outline: none;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 460px;
+      border: 0;
+      background: #ffffff;
+    }
+
+    @media (max-width: 860px) {
+      .quick-links {
+        grid-template-columns: 1fr;
+      }
+
+      iframe {
+        height: 360px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Site Launcher</h1>
+    <p>Open or preview your Firebase and Vercel sites from one local page.</p>
+  </header>
+
+  <main>
+    <section class="quick-links" aria-label="Quick links">
+      <a class="quick-link" href="https://coaching-with-michelle.web.app" target="_blank" rel="noopener noreferrer">
+        <strong>Coaching With Michelle</strong>
+        <span>coaching-with-michelle.web.app</span>
+      </a>
+      <a class="quick-link" href="https://db-enterprises-site.web.app" target="_blank" rel="noopener noreferrer">
+        <strong>DB Enterprises</strong>
+        <span>db-enterprises-site.web.app</span>
+      </a>
+      <a class="quick-link" href="https://hinrichs-specialty-services.vercel.app" target="_blank" rel="noopener noreferrer">
+        <strong>Hinrichs Specialty Services</strong>
+        <span>hinrichs-specialty-services.vercel.app</span>
+      </a>
+      <a class="quick-link" href="https://pfc-website-three.vercel.app" target="_blank" rel="noopener noreferrer">
+        <strong>PFC Website Three</strong>
+        <span>pfc-website-three.vercel.app</span>
+      </a>
+      <a class="quick-link" href="https://the-next-right-step.vercel.app" target="_blank" rel="noopener noreferrer">
+        <strong>The Next Right Step</strong>
+        <span>the-next-right-step.vercel.app</span>
+      </a>
+      <a class="quick-link" href="https://wallflour-cakes.vercel.app" target="_blank" rel="noopener noreferrer">
+        <strong>Wallflour Cakes</strong>
+        <span>wallflour-cakes.vercel.app</span>
+      </a>
+      <a class="quick-link" href="https://81roofing.web.app" target="_blank" rel="noopener noreferrer">
+        <strong>81 Roofing</strong>
+        <span>81roofing.web.app</span>
+      </a>
+    </section>
+
+    <section class="preview-grid" aria-label="Site previews">
+      <article class="preview">
+        <div class="preview-bar">
+          <div class="preview-title">
+            <strong>Coaching With Michelle</strong>
+            <span>https://coaching-with-michelle.web.app</span>
+          </div>
+          <a class="open-button" href="https://coaching-with-michelle.web.app" target="_blank" rel="noopener noreferrer">Open</a>
+        </div>
+        <iframe title="Coaching With Michelle preview" src="https://coaching-with-michelle.web.app"></iframe>
+      </article>
+
+      <article class="preview">
+        <div class="preview-bar">
+          <div class="preview-title">
+            <strong>DB Enterprises</strong>
+            <span>https://db-enterprises-site.web.app</span>
+          </div>
+          <a class="open-button" href="https://db-enterprises-site.web.app" target="_blank" rel="noopener noreferrer">Open</a>
+        </div>
+        <iframe title="DB Enterprises preview" src="https://db-enterprises-site.web.app"></iframe>
+      </article>
+
+      <article class="preview">
+        <div class="preview-bar">
+          <div class="preview-title">
+            <strong>PFC Website Three</strong>
+            <span>https://pfc-website-three.vercel.app</span>
+          </div>
+          <a class="open-button" href="https://pfc-website-three.vercel.app" target="_blank" rel="noopener noreferrer">Open</a>
+        </div>
+        <iframe title="PFC Website Three preview" src="https://pfc-website-three.vercel.app"></iframe>
+      </article>
+
+      <article class="preview">
+        <div class="preview-bar">
+          <div class="preview-title">
+            <strong>The Next Right Step</strong>
+            <span>https://the-next-right-step.vercel.app</span>
+          </div>
+          <a class="open-button" href="https://the-next-right-step.vercel.app" target="_blank" rel="noopener noreferrer">Open</a>
+        </div>
+        <iframe title="The Next Right Step preview" src="https://the-next-right-step.vercel.app"></iframe>
+      </article>
+
+      <article class="preview">
+        <div class="preview-bar">
+          <div class="preview-title">
+            <strong>Wallflour Cakes</strong>
+            <span>https://wallflour-cakes.vercel.app</span>
+          </div>
+          <a class="open-button" href="https://wallflour-cakes.vercel.app" target="_blank" rel="noopener noreferrer">Open</a>
+        </div>
+        <iframe title="Wallflour Cakes preview" src="https://wallflour-cakes.vercel.app"></iframe>
+      </article>
+
+      <article class="preview">
+        <div class="preview-bar">
+          <div class="preview-title">
+            <strong>Hinrichs Specialty Services</strong>
+            <span>https://hinrichs-specialty-services.vercel.app</span>
+          </div>
+          <a class="open-button" href="https://hinrichs-specialty-services.vercel.app" target="_blank" rel="noopener noreferrer">Open</a>
+        </div>
+        <iframe title="Hinrichs Specialty Services preview" src="https://hinrichs-specialty-services.vercel.app"></iframe>
+      </article>
+
+      <article class="preview">
+        <div class="preview-bar">
+          <div class="preview-title">
+            <strong>81 Roofing</strong>
+            <span>https://81roofing.web.app</span>
+          </div>
+          <a class="open-button" href="https://81roofing.web.app" target="_blank" rel="noopener noreferrer">Open</a>
+        </div>
+        <iframe title="81 Roofing preview" src="https://81roofing.web.app"></iframe>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
