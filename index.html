@@ -7,14 +7,16 @@
   <style>
     :root {
       color-scheme: light;
-      --bg: #f6f7f9;
+      --bg: #f5f6f8;
       --panel: #ffffff;
       --text: #17202a;
-      --muted: #637083;
-      --line: #d9dee7;
+      --muted: #5e6b7d;
+      --line: #d8dee8;
       --accent: #0f766e;
       --accent-dark: #0b5d56;
-      --shadow: 0 12px 30px rgba(17, 24, 39, 0.08);
+      --warn: #9a5b13;
+      --good: #157347;
+      --shadow: 0 10px 28px rgba(17, 24, 39, 0.08);
     }
 
     * {
@@ -30,14 +32,14 @@
     }
 
     header {
-      padding: 32px clamp(18px, 4vw, 48px) 18px;
+      padding: 30px clamp(18px, 4vw, 48px) 20px;
       border-bottom: 1px solid var(--line);
       background: var(--panel);
     }
 
     h1 {
       margin: 0 0 8px;
-      font-size: clamp(28px, 4vw, 44px);
+      font-size: clamp(30px, 4vw, 46px);
       line-height: 1.05;
       letter-spacing: 0;
     }
@@ -50,238 +52,363 @@
     }
 
     main {
-      width: min(1220px, calc(100% - 32px));
-      margin: 24px auto 42px;
+      width: min(1260px, calc(100% - 32px));
+      margin: 22px auto 44px;
     }
 
-    .quick-links {
+    .toolbar {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 14px;
-      margin-bottom: 22px;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 18px;
     }
 
-    .quick-link {
+    .search {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 13px;
+      color: var(--text);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font: inherit;
+      box-shadow: var(--shadow);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      min-height: 112px;
-      padding: 18px;
-      color: var(--text);
-      text-decoration: none;
+      min-height: 210px;
+      padding: 16px;
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 8px;
       box-shadow: var(--shadow);
     }
 
-    .quick-link strong {
+    .card h2 {
+      margin: 0 0 8px;
       font-size: 20px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 3px 8px;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
       line-height: 1.2;
     }
 
-    .quick-link span {
+    .badge.live {
+      color: var(--good);
+      border-color: rgba(21, 115, 71, 0.35);
+      background: rgba(21, 115, 71, 0.08);
+    }
+
+    .badge.check {
+      color: var(--warn);
+      border-color: rgba(154, 91, 19, 0.35);
+      background: rgba(154, 91, 19, 0.08);
+    }
+
+    .url {
+      margin-bottom: 14px;
       color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
       overflow-wrap: anywhere;
     }
 
-    .quick-link:hover,
-    .quick-link:focus {
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: auto;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 12px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+      background: #f7f9fb;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+    }
+
+    .button.primary {
+      color: #ffffff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .button:hover,
+    .button:focus {
       border-color: var(--accent);
       outline: none;
     }
 
-    .preview-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
+    .button.primary:hover,
+    .button.primary:focus {
+      background: var(--accent-dark);
     }
 
-    .preview {
-      overflow: hidden;
+    .empty {
+      display: none;
+      padding: 26px;
+      text-align: center;
+      color: var(--muted);
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 8px;
       box-shadow: var(--shadow);
     }
 
-    .preview-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .preview-title {
-      min-width: 0;
-    }
-
-    .preview-title strong {
-      display: block;
-      font-size: 17px;
-      line-height: 1.25;
-    }
-
-    .preview-title span {
-      display: block;
-      color: var(--muted);
-      font-size: 13px;
-      overflow-wrap: anywhere;
-    }
-
-    .open-button {
-      flex: 0 0 auto;
-      padding: 10px 13px;
-      color: #ffffff;
-      text-decoration: none;
-      font-weight: 700;
-      background: var(--accent);
-      border-radius: 6px;
-    }
-
-    .open-button:hover,
-    .open-button:focus {
-      background: var(--accent-dark);
-      outline: none;
-    }
-
-    iframe {
-      display: block;
-      width: 100%;
-      height: 460px;
-      border: 0;
-      background: #ffffff;
-    }
-
-    @media (max-width: 860px) {
-      .quick-links {
+    @media (max-width: 760px) {
+      .toolbar {
         grid-template-columns: 1fr;
       }
 
-      iframe {
-        height: 360px;
-      }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>Site Launcher</h1>
-    <p>Open or preview your Firebase and Vercel sites from one local page.</p>
+    <p>Portable links for Brandon's business and organization websites.</p>
   </header>
 
   <main>
-    <section class="quick-links" aria-label="Quick links">
-      <a class="quick-link" href="https://coaching-with-michelle.web.app" target="_blank" rel="noopener noreferrer">
-        <strong>Coaching With Michelle</strong>
-        <span>coaching-with-michelle.web.app</span>
-      </a>
-      <a class="quick-link" href="https://db-enterprises-site.web.app" target="_blank" rel="noopener noreferrer">
-        <strong>DB Enterprises</strong>
-        <span>db-enterprises-site.web.app</span>
-      </a>
-      <a class="quick-link" href="https://hinrichs-specialty-services.vercel.app" target="_blank" rel="noopener noreferrer">
-        <strong>Hinrichs Specialty Services</strong>
-        <span>hinrichs-specialty-services.vercel.app</span>
-      </a>
-      <a class="quick-link" href="https://pfc-website-three.vercel.app" target="_blank" rel="noopener noreferrer">
-        <strong>PFC Website Three</strong>
-        <span>pfc-website-three.vercel.app</span>
-      </a>
-      <a class="quick-link" href="https://the-next-right-step.vercel.app" target="_blank" rel="noopener noreferrer">
-        <strong>The Next Right Step</strong>
-        <span>the-next-right-step.vercel.app</span>
-      </a>
-      <a class="quick-link" href="https://wallflour-cakes.vercel.app" target="_blank" rel="noopener noreferrer">
-        <strong>Wallflour Cakes</strong>
-        <span>wallflour-cakes.vercel.app</span>
-      </a>
-      <a class="quick-link" href="https://81roofing.web.app" target="_blank" rel="noopener noreferrer">
-        <strong>81 Roofing</strong>
-        <span>81roofing.web.app</span>
-      </a>
-    </section>
+    <div class="toolbar">
+      <input class="search" id="search" type="search" placeholder="Search business sites, domains, or repo names" aria-label="Search launcher">
+    </div>
 
-    <section class="preview-grid" aria-label="Site previews">
-      <article class="preview">
-        <div class="preview-bar">
-          <div class="preview-title">
-            <strong>Coaching With Michelle</strong>
-            <span>https://coaching-with-michelle.web.app</span>
-          </div>
-          <a class="open-button" href="https://coaching-with-michelle.web.app" target="_blank" rel="noopener noreferrer">Open</a>
-        </div>
-        <iframe title="Coaching With Michelle preview" src="https://coaching-with-michelle.web.app"></iframe>
-      </article>
-
-      <article class="preview">
-        <div class="preview-bar">
-          <div class="preview-title">
-            <strong>DB Enterprises</strong>
-            <span>https://db-enterprises-site.web.app</span>
-          </div>
-          <a class="open-button" href="https://db-enterprises-site.web.app" target="_blank" rel="noopener noreferrer">Open</a>
-        </div>
-        <iframe title="DB Enterprises preview" src="https://db-enterprises-site.web.app"></iframe>
-      </article>
-
-      <article class="preview">
-        <div class="preview-bar">
-          <div class="preview-title">
-            <strong>PFC Website Three</strong>
-            <span>https://pfc-website-three.vercel.app</span>
-          </div>
-          <a class="open-button" href="https://pfc-website-three.vercel.app" target="_blank" rel="noopener noreferrer">Open</a>
-        </div>
-        <iframe title="PFC Website Three preview" src="https://pfc-website-three.vercel.app"></iframe>
-      </article>
-
-      <article class="preview">
-        <div class="preview-bar">
-          <div class="preview-title">
-            <strong>The Next Right Step</strong>
-            <span>https://the-next-right-step.vercel.app</span>
-          </div>
-          <a class="open-button" href="https://the-next-right-step.vercel.app" target="_blank" rel="noopener noreferrer">Open</a>
-        </div>
-        <iframe title="The Next Right Step preview" src="https://the-next-right-step.vercel.app"></iframe>
-      </article>
-
-      <article class="preview">
-        <div class="preview-bar">
-          <div class="preview-title">
-            <strong>Wallflour Cakes</strong>
-            <span>https://wallflour-cakes.vercel.app</span>
-          </div>
-          <a class="open-button" href="https://wallflour-cakes.vercel.app" target="_blank" rel="noopener noreferrer">Open</a>
-        </div>
-        <iframe title="Wallflour Cakes preview" src="https://wallflour-cakes.vercel.app"></iframe>
-      </article>
-
-      <article class="preview">
-        <div class="preview-bar">
-          <div class="preview-title">
-            <strong>Hinrichs Specialty Services</strong>
-            <span>https://hinrichs-specialty-services.vercel.app</span>
-          </div>
-          <a class="open-button" href="https://hinrichs-specialty-services.vercel.app" target="_blank" rel="noopener noreferrer">Open</a>
-        </div>
-        <iframe title="Hinrichs Specialty Services preview" src="https://hinrichs-specialty-services.vercel.app"></iframe>
-      </article>
-
-      <article class="preview">
-        <div class="preview-bar">
-          <div class="preview-title">
-            <strong>81 Roofing</strong>
-            <span>https://81roofing.web.app</span>
-          </div>
-          <a class="open-button" href="https://81roofing.web.app" target="_blank" rel="noopener noreferrer">Open</a>
-        </div>
-        <iframe title="81 Roofing preview" src="https://81roofing.web.app"></iframe>
-      </article>
-    </section>
+    <section class="grid" id="launcherGrid" aria-label="Site links"></section>
+    <p class="empty" id="emptyState">No matching sites found.</p>
   </main>
+
+  <script>
+    const sites = [
+      {
+        name: "81 Roofing",
+        category: "Website",
+        status: "Live",
+        url: "https://81roofing.web.app",
+        repo: "https://github.com/Strongman1380/81-Roofing-and-Construction.git"
+      },
+      {
+        name: "Coaching With Michelle",
+        category: "Website",
+        status: "Live",
+        url: "https://coaching-with-michelle.web.app",
+        repo: "https://github.com/Strongman1380/coachingwithmichellecheckout.git"
+      },
+      {
+        name: "DB Enterprises",
+        category: "Website",
+        status: "Live",
+        url: "https://db-enterprises-site.web.app",
+        repo: "https://github.com/Strongman1380/db-enterprises-crm.git"
+      },
+      {
+        name: "EZ Construction",
+        category: "Website",
+        status: "Live",
+        url: "https://ez-construction.vercel.app",
+        repo: "https://github.com/Strongman1380/Ez-Construction.com.git"
+      },
+      {
+        name: "Florez Behavioral Solutions",
+        category: "Website",
+        status: "Live",
+        url: "https://florez-counseling-app.web.app",
+        repo: "https://github.com/Strongman1380/FlorezBehavioralSolutions-HeartlandTaxesBussinessSolutions.git"
+      },
+      {
+        name: "General Exteriors LLC",
+        category: "Website",
+        status: "Live",
+        url: "https://general-exteriors-llc.web.app"
+      },
+      {
+        name: "Hinrichs Specialty Services",
+        category: "Website",
+        status: "Live",
+        url: "https://hinrichs-specialty-services.vercel.app",
+        repo: "https://github.com/Strongman1380/HinrichsSpecialtyServices.git",
+        alternateUrl: "https://hsst-site.web.app"
+      },
+      {
+        name: "PFC Website Three",
+        category: "Website",
+        status: "Live",
+        url: "https://pfc-website-three.vercel.app",
+        repo: "https://github.com/Strongman1380/PrivacyFenceConstruction.com.git",
+        alternateUrl: "https://privacyfenceconstruction.com"
+      },
+      {
+        name: "Recovery Connect",
+        category: "Website",
+        status: "Live",
+        url: "https://www.recoveryconnect.app"
+      },
+      {
+        name: "Sisters Cafe",
+        category: "Website",
+        status: "Live",
+        url: "https://www.sisterscafe.com",
+        repo: "https://github.com/Strongman1380/www.sisterscafe.com.git"
+      },
+      {
+        name: "SOS Counseling",
+        category: "Website",
+        status: "Live",
+        url: "https://www.specializedoutpatientservices.com",
+        repo: "https://github.com/Strongman1380/www.specializesoutpatientservices.com.git"
+      },
+      {
+        name: "The Next Right Step",
+        category: "Website",
+        status: "Live",
+        url: "https://the-next-right-step.vercel.app",
+        repo: "https://github.com/Strongman1380/www.thenextrightstep.org.git"
+      },
+      {
+        name: "VIP Scented Lounge",
+        category: "Website",
+        status: "Live",
+        url: "https://chinrichs.scentsy.us",
+        repo: "https://github.com/Strongman1380/VIP-scented-lounge.git"
+      },
+      {
+        name: "Wallflour Cakes",
+        category: "Website",
+        status: "Live",
+        url: "https://wallflour-cakes.vercel.app",
+        repo: "https://github.com/Strongman1380/wallflour-cakes.git"
+      },
+      {
+        name: "Genorationally Handmade",
+        category: "Website",
+        status: "Needs check",
+        url: "https://genorationallyhandmade.com",
+        repo: "https://github.com/Strongman1380/genorationallyhandmade.com.git"
+      },
+      {
+        name: "Heartland Boys Home",
+        category: "Website",
+        status: "Needs check",
+        url: "https://heartlandboyshome.org",
+        repo: "https://github.com/Strongman1380/heartlandboyshome.git"
+      }
+    ];
+
+    const grid = document.querySelector("#launcherGrid");
+    const search = document.querySelector("#search");
+    const emptyState = document.querySelector("#emptyState");
+
+    function createCard(site) {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.dataset.category = site.category;
+      card.dataset.search = [
+        site.name,
+        site.category,
+        site.status,
+        site.url,
+        site.repo,
+        site.alternateUrl
+      ].filter(Boolean).join(" ").toLowerCase();
+
+      const title = document.createElement("h2");
+      title.textContent = site.name;
+      card.append(title);
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      const category = document.createElement("span");
+      category.className = "badge";
+      category.textContent = site.category;
+      const status = document.createElement("span");
+      status.className = `badge ${site.status === "Live" ? "live" : "check"}`;
+      status.textContent = site.status;
+      meta.append(category, status);
+      card.append(meta);
+
+      const url = document.createElement("div");
+      url.className = "url";
+      url.textContent = site.url;
+      card.append(url);
+
+      const actions = document.createElement("div");
+      actions.className = "actions";
+      actions.append(linkButton("Open", site.url, true));
+      if (site.alternateUrl) {
+        actions.append(linkButton("Alternate", site.alternateUrl, false));
+      }
+      if (site.repo) {
+        actions.append(linkButton("Repo", site.repo, false));
+      }
+      card.append(actions);
+
+      return card;
+    }
+
+    function linkButton(label, href, primary) {
+      const link = document.createElement("a");
+      link.className = primary ? "button primary" : "button";
+      link.href = href;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = label;
+      return link;
+    }
+
+    function render() {
+      const query = search.value.trim().toLowerCase();
+      const cards = Array.from(grid.children);
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const matchesSearch = !query || card.dataset.search.includes(query);
+        const isVisible = matchesSearch;
+        card.hidden = !isVisible;
+        if (isVisible) visibleCount += 1;
+      });
+
+      emptyState.style.display = visibleCount ? "none" : "block";
+    }
+
+    sites
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .forEach((site) => grid.append(createCard(site)));
+
+    search.addEventListener("input", render);
+  </script>
 </body>
 </html>
